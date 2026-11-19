@@ -55,7 +55,7 @@ function job(){return state.jobs.find(x=>x.id===state.active)}
 function log(text){data().activity.unshift({text,day:state.days,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});render()}
 function toast(s){const t=document.getElementById('toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2300)}
 function save(){localStorage.setItem('branchops-core-state',JSON.stringify(state))}
-function load(){try{let x=JSON.parse(localStorage.getItem('branchops-core-state'));if(x&&x.jobs&&x.records)state=x}catch(e){};initialJobs.forEach(j=>{if(!state.jobs.some(x=>x.id===j.id))state.jobs.push(j)});if(!state.records[state.active])state.records[state.active]=blank()}
+function load(){try{let x=JSON.parse(localStorage.getItem('branchops-core-state'));if(x&&x.jobs&&x.records)state=x}catch(e){};initialJobs.forEach(j=>{if(!state.jobs.some(x=>x.id===j.id))state.jobs.push(j)});if(!state.records[state.active])state.records[state.active]=blank();Object.keys(state.records).forEach(k=>{if(!state.records[k].payment)state.records[k].payment={...blank().payment}})}
 function allTasks(){return stages.reduce((n,s)=>n+s.tasks.length,0)}
 function countDone(){let d=data().done,n=0;stages.forEach((s,i)=>s.tasks.forEach((t,j)=>{if(d[i+'-'+j])n++}));return n}
 function currentTasks(){return stages[data().stage].tasks}
