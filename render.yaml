@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: branchops-core
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
